@@ -8,9 +8,6 @@ namespace ServerApp.Models
 {
     public class Step
     {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
     }

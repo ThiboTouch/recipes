@@ -16,12 +16,5 @@ namespace ServerApp.Models.BindingTargets
         public string Description { get; set; }
 
         public List<StepData> Steps { get; set; }
-
-        public Recipe Recipe => new Recipe
-        {
-            Name = Name,
-            Description = Description,
-            Steps = Steps.Select(s => s.Step).ToList()
-        };
     }
 }

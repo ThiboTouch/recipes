@@ -8,14 +8,7 @@ namespace ServerApp.Models.BindingTargets
 {
     public class StepData
     {
-
         [StringLength(1000, MinimumLength = 2)]
         public string Description { get; set; }
-
-        public Step Step => new Step
-        {
-            Description = Description
-        };
-
     }
 }

@@ -20,26 +20,61 @@ namespace ServerApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetRecipe(string id)
+        public async Task<Recipe> GetRecipe(string id)
         {
-            return View();
+            return await _cosmosDbService.GetItemAsync(id);
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<Recipe>> GetRecipes()
+        {
+            return await _cosmosDbService.GetItemsAsync("SELECT * FROM c");
         }
 
         [HttpPost]
-        public IActionResult CreateRecipe([FromBody] RecipeData recipeData)
+        public async Task<IActionResult> CreateRecipe([FromBody] RecipeData recipeData)
         {
             if(ModelState.IsValid)
             {
-                Recipe r = recipeData.Recipe;
+                Recipe r = new Recipe { 
+                    Description = recipeData.Description,
+                    Name = recipeData.Name,
+                    Steps = recipeData.Steps.Select(s => new Step { Description = s.Description }).ToList()
+                };
+
                 r.Id = Guid.NewGuid().ToString();
-                r.Steps.ForEach(s => s.Id = Guid.NewGuid().ToString());
-                _cosmosDbService.AddItemAsync(r);
+                await _cosmosDbService.AddItemAsync(r);
                 return Ok(r.Id);
             }
             else
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditRecipe(string id, [FromBody] RecipeData recipeData)
+        {
+            if(ModelState.IsValid)
+            {
+                Recipe r = new Recipe
+                {
+                    Description = recipeData.Description,
+                    Name = recipeData.Name,
+                    Steps = recipeData.Steps.Select(s => new Step { Description = s.Description }).ToList()
+                };
+
+                r.Id = id;
+                await _cosmosDbService.UpdateItemAsync(id, r);
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteProduct(string id)
+        {
+            await _cosmosDbService.DeleteItemAsync(id);
         }
     }
 }
