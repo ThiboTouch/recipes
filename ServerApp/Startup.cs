@@ -33,7 +33,7 @@ namespace ServerApp
 
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("v1",
-                new OpenApiInfo { Title = "SportsStore API", Version = "v1" });
+                new OpenApiInfo { Title = "Recipe API", Version = "v1" });
             });
 
             services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
@@ -64,6 +64,11 @@ namespace ServerApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "angular_fallback",
+                    pattern: "{target:regex(menu)}/{*catchall}",
+                    defaults: new { controller = "Home", action = "Index" });
             });
 
             app.UseSwagger();
@@ -87,11 +92,6 @@ namespace ServerApp
             });
         }
 
-        // <InitializeCosmosClientInstanceAsync>        
-        /// <summary>
-        /// Creates a Cosmos DB database and a container with the specified partition key. 
-        /// </summary>
-        /// <returns></returns>
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
         {
             string databaseName = configurationSection.GetSection("DatabaseName").Value;
@@ -108,6 +108,5 @@ namespace ServerApp
 
             return cosmosDbService;
         }
-        // </InitializeCosmosClientInstanceAsync>
     }
 }

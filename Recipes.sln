@@ -5,25 +5,25 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerApp", "ServerApp\ServerApp.csproj", "{A1A2AC31-0318-4EA2-B71E-EFE47646517B}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ClientApp", "..\SportsStore\ClientApp\", "{CCAA3C06-F349-4038-99E7-7A9D03E38B29}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ClientApp", "ClientApp\", "{CCAA3C06-F349-4038-99E7-7A9D03E38B29}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_53478"
-		Debug.AspNetCompiler.PhysicalPath = "..\SportsStore\ClientApp\"
+		Debug.AspNetCompiler.PhysicalPath = "ClientApp\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53478\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_53478"
-		Release.AspNetCompiler.PhysicalPath = "..\SportsStore\ClientApp\"
+		Release.AspNetCompiler.PhysicalPath = "ClientApp\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53478\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53478"
-		SlnRelativePath = "..\SportsStore\ClientApp\"
+		SlnRelativePath = "ClientApp\"
 	EndProjectSection
 EndProject
 Global
