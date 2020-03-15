@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+    <h1 class="display-4 py-2 text-truncate">Create Recipe</h1>
+    <div class="px-2">
+      <form action="" class="justify-content-center">
+        <div class="form-group">
+          <img class="card-img-top w-50 h-50 mx-auto mt-1" src="../../assets/icon-placeholder.png" alt="Card image cap">
+        </div>
+        <div class="form-group">
+          <textarea type="text" class="form-control" rows="5" id="description" placeholder="Enter description here..."
+                     [(ngModel)]="recipe.description" name="description"></textarea>
+        </div>
+
+        <recipe-steps></recipe-steps>
+
+        <button type="submit" class="btn btn-outline-success btn-lg mr-5">Create</button>
+
+        <button type="submit" class="btn btn-outline-danger btn-lg" [routerLink]="['/menu']" >Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

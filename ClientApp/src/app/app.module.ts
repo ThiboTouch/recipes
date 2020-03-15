@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ModelModule } from './models/model.module';
 import { FormsModule } from '@angular/forms';
 import { MenuModule } from './menu/menu.module'
+import { ItemModule } from './item/item.module'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MenuModule } from './menu/menu.module'
     AppRoutingModule,
     ModelModule,
     FormsModule,
-    MenuModule
+    MenuModule,
+    ItemModule
   ],
   providers: [],
   bootstrap: [AppComponent]

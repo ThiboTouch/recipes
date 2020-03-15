@@ -8,23 +8,23 @@ import { Recipe } from "../models/recipe.model";
 })
 
 export class ItemsComponent {
-  newArray = [];
+  displayArray = [];
 
   constructor(private repo: Repository) {
     this.repo.getRecipes();
   }
 
   get recipes(): Recipe[] {
-    this.populateNewArray();
     if (this.repo.recipes != null && this.repo.recipes.length > 0) {
+      this.populateDisplayArray();
       return this.repo.recipes;
     }
   }
 
-  populateNewArray() {
+  populateDisplayArray() {
     for (let i = 0; i < this.repo.recipes?.length; i += 3) {
-      if (this.newArray.length < this.checkLength()) {
-        this.newArray.push({ items: this.repo.recipes.slice(i, i + 3) });
+      if (this.displayArray.length < this.checkLength()) {
+        this.displayArray.push({ items: this.repo.recipes.slice(i, i + 3) });
       }
     }
   }

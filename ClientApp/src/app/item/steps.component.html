@@ -1,0 +1,8 @@
+<div class="form-group">
+  <input type="text" class="form-control" [(ngModel)]="stepDescription"
+         name="stepDescription" size="40" placeholder="Write new step" (keyup.enter)="addStep()">
+</div>
+
+<div *ngFor="let item of steps" class="list-group-item list-group-item-warning">
+  
+</div>
