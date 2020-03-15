@@ -8,28 +8,32 @@
   </div>
 </div>
 
-<div *ngIf="recipes?.length > 0; else nodata" class="container-fluid">
-  <div class="row" *ngFor="let row of newArray">
-    <ng-container *ngFor="let item of row?.items">
-      <div class="card m-1 p-1 bg-light">
-        <img class="card-img-top w-50 h-50" src="../../assets/icon-placeholder.png" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">
-            {{item.name}}
-          </h5>
-          <p class="card-text">{{item.description}}</p>
+<div class="container">
+  <div *ngIf="recipes?.length > 0; else nodata" class="container-fluid">
+    <div class="row" *ngFor="let row of newArray">
+      <ng-container *ngFor="let item of row?.items">
+        <div class="col-xs-12 col-md-4">
+          <div class="card mb-4 bg-light" style="">
+            <img class="card-img-top w-50 h-50 mx-auto mt-1" src="../../assets/icon-placeholder.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{item.name}}
+              </h5>
+              <p class="card-text">{{item.description}}</p>
 
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-sm btn-secondary">
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger float-right">
+                Remove
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="card-footer">
-          <button class="btn btn-sm btn-secondary">
-            Edit
-          </button>
-          <button class="btn btn-sm btn-danger float-right">
-            Remove
-          </button>
-        </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
 </div>
 
