@@ -1,7 +1,17 @@
-<div *ngIf="recipes?.length > 0; else nodata" class="">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1 style="text-align: center;" class="mg-bottom">
+        <button class="btn btn-success" style="margin-top:0.8rem">Create New Recipe</button>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="recipes?.length > 0; else nodata" class="container-fluid">
   <div class="card-deck">
     <div *ngFor="let recipe of recipes" class="card m-1 p-1 bg-light">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <img class="card-img-top w-50 h-50" src="../../assets/icon-placeholder.png" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">
             {{recipe.name}}
