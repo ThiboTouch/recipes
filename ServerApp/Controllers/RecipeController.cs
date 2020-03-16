@@ -39,12 +39,12 @@ namespace ServerApp.Controllers
                 Recipe r = new Recipe { 
                     Description = recipeData.Description,
                     Name = recipeData.Name,
-                    Steps = recipeData.Steps.Select(s => new Step { Description = s.Description }).ToList()
+                    Steps = recipeData.Steps?.Select(s => new Step { Description = s.Description }).ToList()
                 };
 
                 r.Id = Guid.NewGuid().ToString();
                 await _cosmosDbService.AddItemAsync(r);
-                return Ok(r.Id);
+                return Ok(new { id = r.Id });
             }
             else
             {

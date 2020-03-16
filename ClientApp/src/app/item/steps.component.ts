@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, Output } from "@angular/core";
 import { Step } from '../models/step.model';
 
 @Component({
@@ -7,7 +7,8 @@ import { Step } from '../models/step.model';
 })
 
 export class StepsComponent {
-  steps: Step[] = [];
+  @Input() public steps: Step[];
+
   stepDescription: string;
 
   constructor() {

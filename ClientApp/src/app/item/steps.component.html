@@ -1,13 +1,13 @@
 <div class="form-group">
   <input type="text" class="form-control" [(ngModel)]="stepDescription"
-         name="stepDescription" size="40" placeholder="Type new step, press enter to add." (keyup.enter)="addStep()">
+         name="stepDescription" size="40" placeholder="Type the new step, press enter to add." (keyup.enter)="addStep()">
 </div>
 
 <div *ngFor="let item of steps; trackBy: trackItem" class="list-group-item list-group-item-warning mb-2">
   <p class="text-left">
-    ({{item.trackId}}). {{item.description}}
+    <span>({{item.trackId}}). {{item.description}}</span>
     <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"
-             title="Click here to remove the item.">
+             title="Remove the item.">
       <i class="far fa-trash-alt"></i>
     </button>
     <button type="button" class="float-right btn-sm btn btn-outline-secondary mr-2" (click)="updateStep(item.trackId)"

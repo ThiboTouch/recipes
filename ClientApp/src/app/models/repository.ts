@@ -21,4 +21,11 @@ export class Repository {
   getRecipes() {
     this.http.get<Recipe[]>(recipesUrl).subscribe(recs => this.recipes = recs)
   }
+
+  createRecipe(recipe: Recipe) {
+    this.http.post<string>(recipesUrl, recipe).subscribe(id => {
+      recipe.recipeId = id
+      this.recipe = recipe
+    })
+  }
 }

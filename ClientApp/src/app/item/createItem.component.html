@@ -7,15 +7,27 @@
           <img class="card-img-top w-50 h-50 mx-auto mt-1" src="../../assets/icon-placeholder.png" alt="Card image cap">
         </div>
         <div class="form-group">
-          <textarea type="text" class="form-control" rows="5" id="description" placeholder="Enter description here..."
-                     [(ngModel)]="recipe.description" name="description"></textarea>
+          <input type="text" class="form-control" [(ngModel)]="recipe.name"
+                 name="name" placeholder="Enter name here...">
         </div>
 
-        <recipe-steps></recipe-steps>
+        <div class="form-group">
+          <textarea type="text" class="form-control" rows="5" id="description" placeholder="Enter description here..."
+                    [(ngModel)]="recipe.description" name="description"></textarea>
+        </div>
 
-        <button type="submit" class="btn btn-outline-success btn-lg mr-5">Save</button>
+        <recipe-steps [steps]="recipe.steps"></recipe-steps>
 
-        <button type="submit" class="btn btn-outline-danger btn-lg" [routerLink]="['/menu']" >Cancel</button>
+        <button type="button" class="btn btn-outline-success btn-lg mr-5" (click)="saveRecipe()">Save</button>
+
+        <button type="button" class="btn btn-outline-danger btn-lg" [routerLink]="['/menu']">Cancel</button>
+
+        <div *ngIf="successfullyCreated" class="alert alert-success mt-2" role="alert">
+          Recipe successfully created.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </form>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Recipe } from '../models/recipe.model';
 import { Step } from '../models/step.model';
+import { Repository } from '../models/repository'
 
 @Component({
   selector: "create-item",
@@ -9,9 +10,31 @@ import { Step } from '../models/step.model';
 
 export class CreateItemComponent{
   recipe: Recipe;
+  successfullyCreated: boolean = false;
 
-  constructor() {
-    this.recipe = new Recipe();
+  constructor(private repository: Repository) {
+    if (repository.recipe === null || repository.recipe === undefined) {
+      this.initializeRecipe();
+    }
+    else {
+      this.recipe = repository.recipe;
+    }
   }
 
+  saveRecipe() {
+    this.successfullyCreated = false;
+
+    if (this.recipe.description != "" && this.recipe.name != "" && this.recipe.steps != []) {
+      this.repository.createRecipe(this.recipe);
+      this.initializeRecipe();
+      this.successfullyCreated = true;
+    }
+  }
+
+  initializeRecipe() {
+    this.recipe = new Recipe();
+    this.recipe.description = "";
+    this.recipe.name = "";
+    this.recipe.steps = [];
+  }
 }
