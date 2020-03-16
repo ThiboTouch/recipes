@@ -3,6 +3,9 @@
          name="stepDescription" size="40" placeholder="Write new step" (keyup.enter)="addStep()">
 </div>
 
-<div *ngFor="let item of steps" class="list-group-item list-group-item-warning">
-  
+<div *ngFor="let item of steps; trackBy: trackItem" class="list-group-item list-group-item-warning mb-2">
+  <p class="text-left">
+    ({{item.trackId}}). {{item.description}}
+    <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"><i class="far fa-trash-alt"></i></button>
+  </p>
 </div>
