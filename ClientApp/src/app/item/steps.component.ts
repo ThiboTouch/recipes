@@ -34,4 +34,15 @@ export class StepsComponent {
     })
   }
 
+  updateStep(trackId: number) {
+    if (this.stepDescription !== undefined && this.stepDescription !== null && this.stepDescription !== "") {
+      var existingItem = this.steps[trackId - 1];
+      if (existingItem !== undefined && existingItem !== null) {
+        existingItem.description = this.stepDescription;
+        this.stepDescription = "";
+      }
+    }
+
+  }
+
 }
