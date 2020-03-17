@@ -11,14 +11,10 @@ import { Repository } from '../models/repository'
 export class CreateItemComponent{
   recipe: Recipe;
   successfullyCreated: boolean = false;
+  editMode: boolean = true;
 
   constructor(private repository: Repository) {
-    if (repository.recipe === null || repository.recipe === undefined) {
       this.initializeRecipe();
-    }
-    else {
-      this.recipe = repository.recipe;
-    }
   }
 
   saveRecipe() {

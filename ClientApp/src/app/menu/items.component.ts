@@ -38,7 +38,6 @@ export class ItemsComponent implements OnInit {
     });
   }
 
-
   populateDisplayArray() {
     for (let i = 0; i < this.repo.recipes?.length; i += 3) {
       if (this.displayArray.length < this.checkLength()) {

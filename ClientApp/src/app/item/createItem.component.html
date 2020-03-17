@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-    <h1 class="display-4 py-2 text-truncate">Create Recipe</h1>
+    <h1 class="display-4 py-2 text-truncate">Recipe</h1>
     <div class="px-2">
       <form action="" class="justify-content-center">
         <div class="form-group">
@@ -12,11 +12,11 @@
         </div>
 
         <div class="form-group">
-          <textarea type="text" class="form-control" rows="5" id="description" placeholder="Enter description here..."
+          <textarea type="text" class="form-control" rows="3" id="description" placeholder="Enter description here..."
                     [(ngModel)]="recipe.description" name="description"></textarea>
         </div>
 
-        <recipe-steps [steps]="recipe.steps"></recipe-steps>
+        <recipe-steps [steps]="recipe.steps" [editMode]="editMode"></recipe-steps>
 
         <button type="button" class="btn btn-outline-success btn-lg mr-5" (click)="saveRecipe()">Save</button>
 

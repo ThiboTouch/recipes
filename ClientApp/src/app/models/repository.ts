@@ -19,11 +19,20 @@ export class Repository {
 
   getRecipe(id: number) {
     this.http.get<Recipe>(`${recipesUrl}/${id}`)
-      .subscribe(r => this.recipe = r);
+      .subscribe(r => {
+        this.recipe = r
+        if (r !== undefined && r != null) {
+          var oldSteps = r.steps;
+          r.steps = [];
+          oldSteps.forEach((value, index) => {
+            this.recipe.steps.push({ trackId: index + 1, description: value.description });
+          })
+        }
+      });
   }
 
   getRecipes() {
-    this.http.get<Recipe[]>(recipesUrl).subscribe(recs => this.recipes = recs);
+    this.http.get<Recipe[]>(recipesUrl).subscribe(recs => { this.recipes = recs });
   }
 
 
@@ -38,4 +47,10 @@ export class Repository {
     this.http.delete(`${recipesUrl}/${id}`)
       .subscribe();
   }
+
+  updateRecipe(id: string, recipe: Recipe) {
+    this.http.put(`${recipesUrl}/${id}`, recipe)
+      .subscribe(() => this.getRecipes());
+  }
+
 }

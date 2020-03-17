@@ -1,6 +1,7 @@
 import { Component, Output, Input, EventEmitter } from "@angular/core";
 import { Repository } from "../models/repository";
 import { Recipe } from "../models/recipe.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "menu-display-item",
@@ -16,9 +17,18 @@ export class DisplayItemComponent {
   @Output() notifyDelete: EventEmitter<string> = new EventEmitter<string>();
 
 
-  constructor(private repository: Repository) {
+  constructor(private repository: Repository, private router: Router) {
 
   }
+
+  viewDetail() {
+    this.router.navigateByUrl(`/menu/detail/${this.item.id}`);
+  }
+
+  editRecipe() {
+    this.router.navigateByUrl(`menu/edit/${this.item.id}`);
+  }
+
 
   deleteRecipe() {
     this.repository.deleteRecipe(this.item.id);

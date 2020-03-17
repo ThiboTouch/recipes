@@ -1,4 +1,4 @@
-<div class="form-group">
+<div *ngIf="editMode" class="form-group">
   <input type="text" class="form-control" [(ngModel)]="stepDescription"
          name="stepDescription" size="40" placeholder="Type the new step, press enter to add." (keyup.enter)="addStep()">
 </div>
@@ -6,13 +6,16 @@
 <div *ngFor="let item of steps; trackBy: trackItem" class="list-group-item list-group-item-warning mb-2">
   <p class="text-left">
     <span>({{item.trackId}}). {{item.description}}</span>
-    <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"
-             title="Remove the item.">
-      <i class="far fa-trash-alt"></i>
-    </button>
-    <button type="button" class="float-right btn-sm btn btn-outline-secondary mr-2" (click)="updateStep(item.trackId)"
-            title="Type in the textbox input and click here to replace the text.">
-      <i class="far fa-edit"></i>
-    </button>
+
+    <ng-container *ngIf="editMode">
+      <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"
+              title="Remove the item.">
+        <i class="far fa-trash-alt"></i>
+      </button>
+      <button type="button" class="float-right btn-sm btn btn-outline-secondary mr-2" (click)="updateStep(item.trackId)"
+              title="Type in the textbox input and click here to replace the text.">
+        <i class="far fa-edit"></i>
+      </button>
+    </ng-container>
   </p>
 </div>

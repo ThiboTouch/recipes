@@ -8,6 +8,7 @@ import { Step } from '../models/step.model';
 
 export class StepsComponent {
   @Input() public steps: Step[];
+  @Input() public editMode: boolean;
 
   stepDescription: string;
 
