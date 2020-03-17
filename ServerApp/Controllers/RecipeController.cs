@@ -44,7 +44,7 @@ namespace ServerApp.Controllers
 
                 r.Id = Guid.NewGuid().ToString();
                 await _cosmosDbService.AddItemAsync(r);
-                return Ok(new { id = r.Id });
+                return Ok(new { r.Id });
             }
             else
             {

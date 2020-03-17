@@ -4,6 +4,10 @@ import { HttpClient } from "@angular/common/http";
 
 const recipesUrl = "/api/recipes";
 
+type createResponse = {
+  id: string
+}
+
 @Injectable()
 export class Repository {
   recipe: Recipe;
@@ -19,16 +23,19 @@ export class Repository {
   }
 
   getRecipes() {
-    this.http.get<Recipe[]>(recipesUrl).subscribe(recs => this.recipes = recs)
+    this.http.get<Recipe[]>(recipesUrl).subscribe(recs => this.recipes = recs);
   }
+
 
   createRecipe(recipe: Recipe) {
-    this.http.post<string>(recipesUrl, recipe).subscribe(id => {
-      recipe.recipeId = id
-      this.recipe = recipe
-    })
+    this.http.post<createResponse>(recipesUrl, recipe).subscribe(response => {
+      recipe.id = response.id;
+      this.recipes.push(recipe)
+    });
   }
 
-  deleteRecipe() {
+  deleteRecipe(id: string) {
+    this.http.delete(`${recipesUrl}/${id}`)
+      .subscribe();
   }
 }

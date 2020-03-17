@@ -13,7 +13,7 @@
     <div class="row" *ngFor="let row of displayArray">
       <ng-container *ngFor="let item of row?.items">
         <div class="col-xs-12 col-md-4">
-          <menu-display-item [item] = "item"></menu-display-item>
+          <menu-display-item [item] = "item" (notifyDelete)="onDeleteNotification($event)"></menu-display-item>
         </div>
       </ng-container>
     </div>
@@ -21,5 +21,5 @@
 </div>
 
 <ng-template #nodata>
-  <h4 class="m-2">Waiting for data...</h4>
+  <h4 class="m-2">No data recieved...</h4>
 </ng-template>

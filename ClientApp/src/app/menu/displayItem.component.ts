@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Output, Input, EventEmitter } from "@angular/core";
 import { Repository } from "../models/repository";
 import { Recipe } from "../models/recipe.model";
 
@@ -13,8 +13,16 @@ export class DisplayItemComponent {
 
   @Input() public item: Recipe;
 
+  @Output() notifyDelete: EventEmitter<string> = new EventEmitter<string>();
+
+
   constructor(private repository: Repository) {
 
+  }
+
+  deleteRecipe() {
+    this.repository.deleteRecipe(this.item.id);
+    this.notifyDelete.emit(this.item.id);
   }
 
 }
