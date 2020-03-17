@@ -1,0 +1,23 @@
+<div class="card mb-4 bg-light">
+  <img class="card-img-top w-50 h-50 mx-auto mt-1" src="../../assets/icon-placeholder.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">
+      <a href="#">{{item.name}}</a>
+    </h5>
+    <p class="card-text">{{item.description}}</p>
+
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-sm btn-outline-secondary">
+      Edit
+    </button>
+    <span *ngIf="confirmDelete" class="m-1 block">
+      <span>Are you sure you want to Delete?</span>
+      <button type="button" class="btn btn-outline-primary btn-sm m-1 float-right" (click)="confirmDelete=false">No</button>
+      <button type="button" class="btn btn-outline-danger btn-sm m-1 float-right" (click)="deleteRecipe()">Yes</button>
+    </span>
+    <button type="button" *ngIf="!confirmDelete"
+            (click)="confirmDelete=true" class="btn btn-sm btn-outline-danger float-right">
+      Remove </button>
+  </div>
+</div>

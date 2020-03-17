@@ -28,4 +28,7 @@ export class Repository {
       this.recipe = recipe
     })
   }
+
+  deleteRecipe() {
+  }
 }
