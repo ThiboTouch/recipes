@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServerApp.Models;
 using ServerApp.Models.BindingTargets;
@@ -11,6 +12,7 @@ namespace ServerApp.Controllers
 {
     [Route("api/recipes")]
     [ApiController]
+    [Authorize]
     public class RecipeController : Controller
     {
         private ICosmosDbService _cosmosDbService;

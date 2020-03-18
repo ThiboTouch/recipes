@@ -1,6 +1,7 @@
 import { Recipe } from "./recipe.model";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
 
 const recipesUrl = "/api/recipes";
 
@@ -51,6 +52,15 @@ export class Repository {
   updateRecipe(id: string, recipe: Recipe) {
     this.http.put(`${recipesUrl}/${id}`, recipe)
       .subscribe(() => this.getRecipes());
+  }
+
+  login(name: string, password: string): Observable<boolean> {
+    return this.http.post<boolean>("/api/account/login",
+      { name: name, password: password });
+  }
+
+  logout() {
+    this.http.post("/api/account/logout", null).subscribe(response => { });
   }
 
 }

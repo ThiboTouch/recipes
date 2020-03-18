@@ -7,6 +7,7 @@ import { ModelModule } from './models/model.module';
 import { FormsModule } from '@angular/forms';
 import { MenuModule } from './menu/menu.module';
 import { ItemModule } from './item/item.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ItemModule } from './item/item.module';
     ModelModule,
     FormsModule,
     MenuModule,
-    ItemModule
+    ItemModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

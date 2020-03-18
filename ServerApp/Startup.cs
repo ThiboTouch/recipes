@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using ServerApp.Services;
 using ServerApp.Models;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ServerApp
 {
@@ -36,11 +38,15 @@ namespace ServerApp
                 new OpenApiInfo { Title = "Recipe API", Version = "v1" });
             });
 
+            services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Identity"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityDataContext>();
+
             services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +63,7 @@ namespace ServerApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -69,6 +76,11 @@ namespace ServerApp
                     name: "angular_fallback",
                     pattern: "{target:regex(menu)}/{*catchall}",
                     defaults: new { controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                   name: "angular_login",
+                   pattern: "{target:regex(login)}/{*catchall}",
+                   defaults: new { controller = "Home", action = "Index" });
             });
 
             app.UseSwagger();
@@ -90,6 +102,8 @@ namespace ServerApp
                     spa.UseAngularCliServer("start");
                 }
             });
+
+            IdentitySeedData.SeedDatabase(services).Wait();
         }
 
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
