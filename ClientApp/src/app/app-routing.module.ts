@@ -5,6 +5,7 @@ import { CreateItemComponent } from './item/createItem.component';
 import { DetailComponent } from './item/detail.component';
 
 const routes: Routes = [
+  { path: "menu/edit/:id", component: CreateItemComponent },
   { path: "menu/detail/:id", component: DetailComponent },
   { path: "menu/create", component: CreateItemComponent },
   { path: "menu", component: MenuComponent },

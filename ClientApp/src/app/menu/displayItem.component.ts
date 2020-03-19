@@ -29,7 +29,6 @@ export class DisplayItemComponent {
     this.router.navigateByUrl(`menu/edit/${this.item.id}`);
   }
 
-
   deleteRecipe() {
     this.repository.deleteRecipe(this.item.id);
     this.notifyDelete.emit(this.item.id);
