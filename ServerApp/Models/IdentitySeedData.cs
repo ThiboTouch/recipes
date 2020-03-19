@@ -10,7 +10,7 @@ namespace ServerApp.Models
 {
     public class IdentitySeedData
     {
-        private const string username = "user";
+        private static string[] usernames = { "user", "user2" };
         private const string password = "MySecret123$";
 
         public static async Task SeedDatabase(IServiceProvider provider)
@@ -18,16 +18,19 @@ namespace ServerApp.Models
             provider.GetRequiredService<IdentityDataContext>().Database.Migrate();
             UserManager<IdentityUser> userManager = provider.GetRequiredService<UserManager<IdentityUser>>();
             RoleManager<IdentityRole> roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-            IdentityUser user = await userManager.FindByNameAsync(username);
-            if (user == null)
+            foreach(var username in usernames)
             {
-                user = new IdentityUser(username);
-                IdentityResult result
-                = await userManager.CreateAsync(user, password);
-                if (!result.Succeeded)
+                IdentityUser user = await userManager.FindByNameAsync(username);
+                if (user == null)
                 {
-                    throw new Exception("Cannot create user: "
-                    + result.Errors.FirstOrDefault());
+                    user = new IdentityUser(username);
+                    IdentityResult result
+                    = await userManager.CreateAsync(user, password);
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("Cannot create user: "
+                        + result.Errors.FirstOrDefault());
+                    }
                 }
             }
         }

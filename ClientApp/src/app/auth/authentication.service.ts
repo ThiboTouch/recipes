@@ -4,6 +4,11 @@ import { Observable, of } from "rxjs";
 import { Router } from "@angular/router";
 import { map, catchError } from 'rxjs/operators';
 
+type loginResponse = {
+  success: boolean,
+  userId: string
+};
+
 @Injectable({
   providedIn:'root'
 })
@@ -13,6 +18,7 @@ export class AuthenticationService {
 
   authenticated: boolean = false;
   name: string;
+  userId: string;
   password: string;
   callbackUrl: string;
 
@@ -24,6 +30,7 @@ export class AuthenticationService {
         if (response) {
           this.authenticated = true;
           this.password = null;
+          this.userId = response.userId;
           this.router.navigateByUrl(this.callbackUrl || "menu");
         }
         return this.authenticated;

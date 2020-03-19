@@ -7,17 +7,20 @@
     <p class="card-text">{{item.description}}</p>
 
   </div>
-  <div class="card-footer">
-    <button class="btn btn-sm btn-outline-secondary">
-      Edit
-    </button>
-    <span *ngIf="confirmDelete" class="m-1 block">
-      <span>Are you sure you want to Delete?</span>
-      <button type="button" class="btn btn-outline-primary btn-sm m-1 float-right" (click)="confirmDelete=false">No</button>
-      <button type="button" class="btn btn-outline-danger btn-sm m-1 float-right" (click)="deleteRecipe()">Yes</button>
-    </span>
-    <button type="button" *ngIf="!confirmDelete"
-            (click)="confirmDelete=true" class="btn btn-sm btn-outline-danger float-right">
-      Remove </button>
-  </div>
+  <ng-container *ngIf="canModify">
+    <div class="card-footer">
+      <button class="btn btn-sm btn-outline-secondary">
+        Edit
+      </button>
+      <span *ngIf="confirmDelete" class="m-1 block">
+        <span>Are you sure you want to Delete?</span>
+        <button type="button" class="btn btn-outline-primary btn-sm m-1 float-right" (click)="confirmDelete=false">No</button>
+        <button type="button" class="btn btn-outline-danger btn-sm m-1 float-right" (click)="deleteRecipe()">Yes</button>
+      </span>
+      <button type="button" *ngIf="!confirmDelete"
+              (click)="confirmDelete=true" class="btn btn-sm btn-outline-danger float-right">
+        Remove
+      </button>
+    </div>
+  </ng-container>
 </div>

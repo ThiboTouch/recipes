@@ -61,7 +61,8 @@ namespace ServerApp.Controllers
         {
             if (ModelState.IsValid && await DoLogin(creds))
             {
-                return Ok("true");
+                IdentityUser user = await userManager.FindByNameAsync(creds.Name);
+                return Ok(new { success= "true", userId = user.Id  });
             }
             return BadRequest();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ServerApp.Models;
 using ServerApp.Models.BindingTargets;
@@ -16,9 +17,11 @@ namespace ServerApp.Controllers
     public class RecipeController : Controller
     {
         private ICosmosDbService _cosmosDbService;
-        public RecipeController(ICosmosDbService cosmosDbService)
+        private UserManager<IdentityUser> _userMangager;
+        public RecipeController(ICosmosDbService cosmosDbService, UserManager<IdentityUser> userMgr)
         {
             _cosmosDbService = cosmosDbService;
+            _userMangager = userMgr;
         }
 
         [HttpGet("{id}")]
@@ -36,12 +39,14 @@ namespace ServerApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRecipe([FromBody] RecipeData recipeData)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Recipe r = new Recipe { 
+                Recipe r = new Recipe
+                {
                     Description = recipeData.Description,
                     Name = recipeData.Name,
-                    Steps = recipeData.Steps?.Select(s => new Step { Description = s.Description }).ToList()
+                    Steps = recipeData.Steps?.Select(s => new Step { Description = s.Description }).ToList(),
+                    UserId = recipeData.UserId
                 };
 
                 r.Id = Guid.NewGuid().ToString();
@@ -57,18 +62,25 @@ namespace ServerApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditRecipe(string id, [FromBody] RecipeData recipeData)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+
                 Recipe r = new Recipe
                 {
                     Description = recipeData.Description,
                     Name = recipeData.Name,
-                    Steps = recipeData.Steps.Select(s => new Step { Description = s.Description }).ToList()
+                    Steps = recipeData.Steps.Select(s => new Step { Description = s.Description }).ToList(),
+                    UserId = recipeData.UserId,
+                    Id = id
                 };
 
-                r.Id = id;
-                await _cosmosDbService.UpdateItemAsync(id, r);
-                return Ok();
+                if (await belongsToUser(r))
+                {
+                    await _cosmosDbService.UpdateItemAsync(id, r);
+
+                    return Ok();
+                }
+
             }
             return BadRequest(ModelState);
         }
@@ -76,7 +88,15 @@ namespace ServerApp.Controllers
         [HttpDelete("{id}")]
         public async Task DeleteProduct(string id)
         {
-            await _cosmosDbService.DeleteItemAsync(id);
+            var r = await _cosmosDbService.GetItemAsync(id);
+            if (await belongsToUser(r))
+                await _cosmosDbService.DeleteItemAsync(id);
+        }
+
+        private async Task<bool> belongsToUser(Recipe recipe)
+        {
+            var user = await _userMangager.FindByNameAsync(User.Identity.Name);
+            return recipe.UserId == user?.Id;
         }
     }
 }

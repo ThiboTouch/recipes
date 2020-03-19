@@ -16,5 +16,7 @@ namespace ServerApp.Models.BindingTargets
         public string Description { get; set; }
 
         public List<StepData> Steps { get; set; }
+
+        public string UserId { get; set; }
     }
 }

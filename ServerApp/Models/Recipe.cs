@@ -18,6 +18,8 @@ namespace ServerApp.Models
         public string Description { get; set; }
 
         [JsonProperty(PropertyName = "steps")]
-        public List<Step> Steps { get; set; } 
+        public List<Step> Steps { get; set; }
+
+        public string UserId { get; set; }
     }
 }

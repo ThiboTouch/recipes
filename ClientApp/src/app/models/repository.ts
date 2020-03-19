@@ -9,6 +9,11 @@ type createResponse = {
   id: string
 }
 
+type loginResponse = {
+  success: boolean,
+  userId: string
+};
+
 @Injectable()
 export class Repository {
   recipe: Recipe;
@@ -54,8 +59,8 @@ export class Repository {
       .subscribe(() => this.getRecipes());
   }
 
-  login(name: string, password: string): Observable<boolean> {
-    return this.http.post<boolean>("/api/account/login",
+  login(name: string, password: string): Observable<loginResponse> {
+    return this.http.post<loginResponse>("/api/account/login",
       { name: name, password: password });
   }
 
