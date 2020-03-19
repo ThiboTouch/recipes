@@ -20,7 +20,7 @@ This branch has the App working without the security and the edit features.
 * Unhappy with the User experience implemented on the steps component could use a better design.
 ##### Edit_Recipe:
 This branch has the edit features although there are minor issues:
-* Repository service fails to populate the Recipe object on the CreateItemComponent once returned from the server, throwing an undefied property error in the template. Have battled with this issue for some days.
+* Repository service fails to populate the Recipe object on the CreateItemComponent once returned from the server, throwing an undefined property error in the template. Have battled with this issue for some days.
 ##### Security:
 This branch has the user security features although there are minor issues:
 * The authentcation service loses state after a browser refresh, might need to save some data in LocalStorage. Not sure if that is good security practice though.
