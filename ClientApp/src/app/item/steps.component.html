@@ -5,7 +5,7 @@
 
 <div *ngFor="let item of steps; trackBy: trackItem" class="list-group-item list-group-item-warning mb-2">
   <p class="text-left">
-    <span>({{item.trackId}}). {{item.description}}</span>
+    <span style="cursor:pointer" (click)="setDescription(item.description)" title="click to edit">({{item.trackId}}). {{item.description}}</span>
 
     <ng-container *ngIf="editMode">
       <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"
@@ -13,7 +13,7 @@
         <i class="far fa-trash-alt"></i>
       </button>
       <button type="button" class="float-right btn-sm btn btn-outline-secondary mr-2" (click)="updateStep(item.trackId)"
-              title="Type in the textbox input and click here to replace the text.">
+              title="click here to replace the text with what's in the text input.">
         <i class="far fa-edit"></i>
       </button>
     </ng-container>

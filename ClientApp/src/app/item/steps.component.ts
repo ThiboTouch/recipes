@@ -44,7 +44,10 @@ export class StepsComponent {
         this.stepDescription = "";
       }
     }
+  }
 
+  setDescription(description: string) {
+    this.stepDescription = description;
   }
 
 }
