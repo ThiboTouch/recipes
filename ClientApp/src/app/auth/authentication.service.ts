@@ -14,7 +14,14 @@ type loginResponse = {
 })
 export class AuthenticationService {
 
-  constructor(private repo: Repository, private router: Router) { }
+  constructor(private repo: Repository, private router: Router) {
+    var state = localStorage.getItem('user');
+    if (state) {
+      var object = JSON.parse(state);
+      this.authenticated = object.authenticated;
+      this.userId = object.userId;
+    }
+  }
 
   authenticated: boolean = false;
   name: string;
@@ -31,6 +38,7 @@ export class AuthenticationService {
           this.authenticated = true;
           this.password = null;
           this.userId = response.userId;
+          this.storeState();
           this.router.navigateByUrl(this.callbackUrl || "menu");
         }
         return this.authenticated;
@@ -44,6 +52,16 @@ export class AuthenticationService {
   logout() {
     this.authenticated = false;
     this.repo.logout();
+    this.removeState();
     this.router.navigateByUrl("login");
+  }
+
+  removeState() {
+    localStorage.removeItem('user');
+  }
+
+  storeState() {
+    var object = { userId: this.userId, authenticated: this.authenticated };
+    localStorage.setItem('user', JSON.stringify(object));
   }
 }
