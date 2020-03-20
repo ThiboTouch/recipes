@@ -16,7 +16,7 @@
 
 #### Branches
 ##### Master:
-This branch has the App working without the security and the edit features.
+This branch has the App working without the edit features.
 * Unhappy with the User experience implemented on the steps component could use a better design.
 * Add functionality to allow photo upload of the recipe being created.
 ##### Edit_Recipe:
