@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
 })
 
 export class ItemsComponent implements OnInit {
-  displayArray = [];
 
   constructor(private repo: Repository, private router: Router) { }
 
@@ -20,7 +19,6 @@ export class ItemsComponent implements OnInit {
 
   get recipes(): Recipe[] {
     if (this.repo.recipes != null && this.repo.recipes.length > 0) {
-      this.populateDisplayArray();
       return this.repo.recipes;
     }
   }
@@ -30,23 +28,5 @@ export class ItemsComponent implements OnInit {
     if (i !== -1) {
       this.repo.recipes.splice(i, 1)
     };
-
-    
-
-    this.router.navigateByUrl('/menu/create', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/menu']);
-    });
-  }
-
-  populateDisplayArray() {
-    for (let i = 0; i < this.repo.recipes?.length; i += 3) {
-      if (this.displayArray.length < this.checkLength()) {
-        this.displayArray.push({ items: this.repo.recipes.slice(i, i + 3) });
-      }
-    }
-  }
-
-  checkLength() {
-    return Math.ceil(this.repo.recipes.length / 3);
   }
 }

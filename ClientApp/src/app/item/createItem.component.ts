@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 
 export class CreateItemComponent implements OnInit {
-  recipe: Recipe;
   successfullyCreated: boolean = false;
   editMode: boolean = true;
 
@@ -19,13 +18,19 @@ export class CreateItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id = this.activeRoute.snapshot.params["id"];
-    if (id) {
-      this.repository.getRecipe(id);
-      this.recipe = this.repository.recipe;
-    } else {
+
+    this.activeRoute.data.subscribe(data => {
+      this.repository.recipe = data['recipe'];
+    });
+
+    if (!this.repository.recipe) {
       this.initializeRecipe();
     }
+  }
+
+
+  get recipe(): Recipe {
+    return this.repository.recipe;
   }
 
   saveRecipe() {
@@ -37,14 +42,19 @@ export class CreateItemComponent implements OnInit {
       this.successfullyCreated = true;
     }
     else {
-      this.repository.updateRecipe(this.recipe.id, this.recipe); 
+      this.repository.updateRecipe(this.recipe.id, this.recipe);
+      this.successfullyCreated = true;
     }
   }
 
+  onNotifyStepsUpdated(steps: Step[]) {
+    this.recipe.steps = steps;
+  }
+
   initializeRecipe() {
-    this.recipe = new Recipe();
-    this.recipe.description = "";
-    this.recipe.name = "";
-    this.recipe.steps = [];
+    this.repository.recipe = new Recipe();
+    this.repository.recipe.description = "";
+    this.repository.recipe.name = "";
+    this.repository.recipe.steps = [];
   }
 }

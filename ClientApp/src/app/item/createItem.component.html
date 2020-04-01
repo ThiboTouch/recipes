@@ -16,7 +16,7 @@
                     [(ngModel)]="recipe.description" name="description"></textarea>
         </div>
 
-        <recipe-steps [steps]="recipe.steps" [editMode]="editMode"></recipe-steps>
+        <recipe-steps [steps]="recipe.steps" (notifyUpdatedSteps)="onNotifyStepsUpdated($event)" [editMode]="editMode"></recipe-steps>
 
         <button type="button" class="btn btn-outline-success btn-lg mr-5" (click)="saveRecipe()">Save</button>
 

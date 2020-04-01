@@ -8,7 +8,8 @@
     <span style="cursor:pointer" (click)="setDescription(item.description)" title="click to edit">({{item.trackId}}). {{item.description}}</span>
 
     <ng-container *ngIf="editMode">
-      <button type="button" class="float-right btn-sm btn btn-outline-danger" (click)="removeStep(item.trackId)"
+      <button type="button" class="float-right btn-sm btn btn-outline-danger"
+              (click)="removeStep(item.trackId)"
               title="Remove the item.">
         <i class="far fa-trash-alt"></i>
       </button>
