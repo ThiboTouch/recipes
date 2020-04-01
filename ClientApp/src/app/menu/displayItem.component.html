@@ -9,7 +9,7 @@
   </div>
   <ng-container *ngIf="canModify">
     <div class="card-footer">
-      <button class="btn btn-sm btn-outline-secondary">
+      <button class="btn btn-sm btn-outline-secondary" (click)="editRecipe()">
         Edit
       </button>
       <span *ngIf="confirmDelete" class="m-1 block">

@@ -1,4 +1,4 @@
-import { Component, Input, Output } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Step } from '../models/step.model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Step } from '../models/step.model';
 export class StepsComponent {
   @Input() public steps: Step[];
   @Input() public editMode: boolean;
+  @Output() public notifyUpdatedSteps: EventEmitter<Step[]> = new EventEmitter<Step[]>();
 
   stepDescription: string;
 
@@ -34,6 +35,8 @@ export class StepsComponent {
         this.steps.push({ trackId: this.steps.length + 1, description: value.description });
       }
     })
+
+    this.notifyUpdatedSteps.emit(this.steps);
   }
 
   updateStep(trackId: number) {

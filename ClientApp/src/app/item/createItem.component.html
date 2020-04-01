@@ -16,14 +16,14 @@
                     [(ngModel)]="recipe.description" name="description"></textarea>
         </div>
 
-        <recipe-steps [steps]="recipe.steps" [editMode]="editMode"></recipe-steps>
+        <recipe-steps [steps]="recipe.steps" (notifyUpdatedSteps)="onNotifyStepsUpdated($event)" [editMode]="editMode"></recipe-steps>
 
         <button type="button" class="btn btn-outline-success btn-lg mr-5" (click)="saveRecipe()">Save</button>
 
         <button type="button" class="btn btn-outline-danger btn-lg" [routerLink]="['/menu']">Cancel</button>
 
         <div *ngIf="successfullyCreated" class="alert alert-success mt-2" role="alert">
-          Recipe successfully created.
+          Recipe successfully saved.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

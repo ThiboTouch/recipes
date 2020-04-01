@@ -37,7 +37,6 @@ export class DisplayItemComponent implements OnInit {
     this.router.navigateByUrl(`menu/edit/${this.item.id}`);
   }
 
-
   deleteRecipe() {
     if (this.canModify) {
       this.repository.deleteRecipe(this.item.id);

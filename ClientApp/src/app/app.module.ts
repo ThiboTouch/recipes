@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MenuModule } from './menu/menu.module';
 import { ItemModule } from './item/item.module';
 import { AuthModule } from './auth/auth.module';
+import { RecipeItemEditResolver } from './_resolvers/recipe-item-edit.resolver';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
     ItemModule,
     AuthModule
   ],
-  providers: [],
+  providers: [RecipeItemEditResolver],
   bootstrap: [AppComponent]
 })
 
